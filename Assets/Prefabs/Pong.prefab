@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 204268709}
   - component: {fileID: 204268708}
   m_Layer: 5
-  m_Name: Player2_Score
+  m_Name: Player1_Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 616906806}
   - component: {fileID: 616906805}
   m_Layer: 5
-  m_Name: Player1_Score
+  m_Name: Player2_Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1371,6 +1371,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   rb: {fileID: 9124727650912364516}
+  Player1_score: {fileID: 204268708}
+  Player2_score: {fileID: 616906805}
+  Player1_counter: 0
+  Player2_counter: 0
+  Player1_Goal: {fileID: 3196333215019468244}
+  Player2_Goal: {fileID: 2993529251794409046}
 --- !u!212 &163077797830929866
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1627,12 +1633,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7666340522823012018}
-  - component: {fileID: 2763802251175187821}
   - component: {fileID: 696826764}
   - component: {fileID: 696826763}
   m_Layer: 5
   m_Name: Player2Goal
-  m_TagString: Untagged
+  m_TagString: goal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1657,21 +1662,6 @@ RectTransform:
   m_AnchoredPosition: {x: -159, y: 0.73999786}
   m_SizeDelta: {x: 14.79, y: 163.91}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2763802251175187821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2993529251794409046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1b79eca8600c7741b6a91ed9f4be58b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ball: {fileID: 21395932032616902}
-  Counter: 0
-  score: {fileID: 204268708}
 --- !u!65 &696826764
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1747,11 +1737,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6085156434804071440}
   - component: {fileID: 1508866285377847866}
-  - component: {fileID: 329835136425847242}
   - component: {fileID: 2113208338}
   m_Layer: 5
   m_Name: Player1Goal
-  m_TagString: Untagged
+  m_TagString: goal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1789,21 +1778,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3564858, y: 13.513242, z: 0}
   m_Center: {x: 0.027813645, y: 0.05444885, z: -0.50000817}
---- !u!114 &329835136425847242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3196333215019468244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1b79eca8600c7741b6a91ed9f4be58b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ball: {fileID: 21395932032616902}
-  Counter: 0
-  score: {fileID: 616906805}
 --- !u!212 &2113208338
 SpriteRenderer:
   m_ObjectHideFlags: 0

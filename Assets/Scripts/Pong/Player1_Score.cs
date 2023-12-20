@@ -1,44 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro;
 using static UnityEditor.PlayerSettings;
 
-public class Goal : MonoBehaviour
+public class Player1_Score : MonoBehaviour
 {
     public Ball ball;
-
-    public int Counter;
+    public int Counter = 0;
     public TextMeshProUGUI score;
 
     private void Start()
     {
         ball = transform.parent.gameObject.GetComponentInChildren<Ball>();
-
     }
- 
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject == ball.gameObject)
         {
-            Debug.Log("dlþfmdlsþfmdlsþ");
-
+            Debug.Log("1++");
             Counter++;
-            score.text = Counter.ToString();            
-            ball.StartGame();
-            if (Counter >= 7)
-            {
-                ball.ResetPosition();
-                ResetCounter();
-
-            }
+            score.text = Counter.ToString();
         }
     }
 
-    public void ResetCounter()
-    {
-        Counter = 0;
-    }
 
 }

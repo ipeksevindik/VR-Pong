@@ -23,7 +23,6 @@ public class RightJoystick : MonoBehaviour, IPlayerMovement
     {
         hj = GetComponent<HingeJoint>();
         objectHeight = Player.transform.GetComponent<SpriteRenderer>().bounds.size.y / 2;
-        ball = FindObjectOfType<Ball>();
 
     }
 

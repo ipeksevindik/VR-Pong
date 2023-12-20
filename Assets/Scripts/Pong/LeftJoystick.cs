@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Newtonsoft.Json.Schema;
+
 using UnityEngine;
 
 public class LeftJoystick : MonoBehaviour, IPlayerMovement
@@ -24,7 +25,6 @@ public class LeftJoystick : MonoBehaviour, IPlayerMovement
     {
         hj = GetComponent<HingeJoint>();
         objectHeight = Player.transform.GetComponent<SpriteRenderer>().bounds.size.y / 2;
-        ball = FindObjectOfType<Ball>();
     }
 
     private void Update()
@@ -35,7 +35,6 @@ public class LeftJoystick : MonoBehaviour, IPlayerMovement
     private void FixedUpdate()
     {
         Boundaries();
-
     }
 
     public void PlayerMove()
@@ -49,7 +48,7 @@ public class LeftJoystick : MonoBehaviour, IPlayerMovement
         {
             Player.transform.position -= new Vector3(0, 0.3f, 0) * Time.deltaTime;
         }
-                
+
     }
 
     public void Boundaries()

@@ -2196,6 +2196,21 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7221313395100271321, guid: baffb02aafa513e45bcc1604bdf9a24f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221313395100271321, guid: baffb02aafa513e45bcc1604bdf9a24f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221313395100271321, guid: baffb02aafa513e45bcc1604bdf9a24f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7874583379877081116, guid: baffb02aafa513e45bcc1604bdf9a24f,
         type: 3}
       propertyPath: m_InteractionManager

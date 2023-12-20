@@ -14,8 +14,6 @@ public class PlayerPaddle : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("deneme");
-
         ContactPoint contactPoint = collision.contacts[0];
         Vector3 newVelocity = Vector3.Reflect(ball.rb.velocity, contactPoint.normal);
         ball.rb.velocity = newVelocity;
