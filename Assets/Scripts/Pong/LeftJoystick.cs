@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Newtonsoft.Json.Schema;
-using Photon.Pun;
 using UnityEngine;
 
 public class LeftJoystick : MonoBehaviour, IPlayerMovement
