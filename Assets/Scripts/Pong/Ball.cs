@@ -7,28 +7,31 @@ using TMPro;
 using UnityEngine.PlayerLoop;
 using static UnityEditor.PlayerSettings;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 using System.Threading.Tasks;
 
 public class Ball : MonoBehaviour
 {
     public float speed;
     public Rigidbody rb;
-    int goal = 0;
     Vector3 pos;
     public TextMeshProUGUI Player1_score;
     public TextMeshProUGUI Player2_score;
     public int Player1_counter = 0;
     public int Player2_counter = 0;
-
     public GameObject Player1_Goal;
     public GameObject Player2_Goal;
+    private PhotonView photonView;
+
 
     private void Start()
     {
+        photonView = GetComponent<PhotonView>();
         pos = transform.position;
     }
 
     [ContextMenu("AddStartingForce")]
+    [PunRPC]
     public void AddStartingForce()
     {
         ResetPosition();
@@ -56,7 +59,7 @@ public class Ball : MonoBehaviour
 
         if (other.gameObject == Player1_Goal.gameObject || other.gameObject == Player2_Goal.gameObject)
         {
-            if (Player1_counter + Player2_counter >= 5)
+            if (Player1_counter + Player2_counter >= 7)
             {
                 await WaitScore();
                 ResetPosition();
@@ -67,9 +70,10 @@ public class Ball : MonoBehaviour
                 Player2_counter = 0;
                 Player2_score.text = Player2_counter.ToString();
             }
-            if (Player1_counter + Player2_counter < 5)
+            if (Player1_counter + Player2_counter < 7)
             {
-                AddStartingForce();
+                photonView.RPC(nameof(AddStartingForce), RpcTarget.AllBuffered);
+                //AddStartingForce();
             }
         }
     }

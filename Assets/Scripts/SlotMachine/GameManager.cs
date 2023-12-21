@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public List<SlotItem> SelectedItemsRow5 = new List<SlotItem>();
 
     public List<TrailRenderer> LineList = new List<TrailRenderer>();
-         
+
     public int StopedRowCount = 0;
 
     public float Final_prize;
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         int row1_3 = UnityEngine.Random.Range(0, Rows_1.Count);
         int randomspin = SelectRandomRowSpin();
 
-        if(row1_1 == row1_2 || row1_1 == row1_3 || row1_2 == row1_3)
+        if (row1_1 == row1_2 || row1_1 == row1_3 || row1_2 == row1_3)
         {
             SelectRandomItemRow1();
         }
@@ -219,7 +219,7 @@ public class GameManager : MonoBehaviour
     {
         Final_prize = 0;
         Prize_txt.text = " ";
-        // ResetRow Hep SelectedItems.Clear() dan önce çalýþsýn
+        // ResetRow Hep SelectedItems.Clear() dan ï¿½nce ï¿½alï¿½ï¿½sï¿½n
         ResetRow(SelectedItemsRow1);
         SelectedItemsRow1.Clear();
     }
@@ -267,7 +267,7 @@ public class GameManager : MonoBehaviour
     {
         CheckLinePrize(SelectedItemsRow1, SelectedItemsRow2, SelectedItemsRow3, SelectedItemsRow4, SelectedItemsRow5);
         isStoped = true;
-     
+
 
     }
 
@@ -307,7 +307,7 @@ public class GameManager : MonoBehaviour
     public void CheckLines(SlotItem item1, SlotItem item2, SlotItem item3, SlotItem item4, SlotItem item5)
     {
 
-        if(item1.ItemId == item2.ItemId)
+        if (item1.ItemId == item2.ItemId)
         {
             if (item2.ItemId == item3.ItemId)
             {
@@ -328,7 +328,7 @@ public class GameManager : MonoBehaviour
                         Final_prize *= 10;
                         item5.GetComponent<PrizeEffect>().SpawnTrail(item5);
                         JackpotLine(item1, item2, item3, item4, item5);
-                        
+
 
                         ConfettiPlay();
                         WinEffect();
@@ -400,7 +400,7 @@ public class GameManager : MonoBehaviour
         MoveNext(Rows_3, SelectedItemsRow3[0], SelectedItemsRow3[1], SelectedItemsRow3[2], rowspin3);
         MoveNext(Rows_4, SelectedItemsRow4[0], SelectedItemsRow4[1], SelectedItemsRow4[2], rowspin4);
         MoveNext(Rows_5, SelectedItemsRow5[0], SelectedItemsRow5[1], SelectedItemsRow5[2], rowspin5);
-        
+
     }
 
     [PunRPC]
@@ -413,7 +413,7 @@ public class GameManager : MonoBehaviour
     public void ResetRow(List<SlotItem> list)
     {
         DestroyJackpotLine();
-       
+
 
         foreach (var item in list)
         {
@@ -427,14 +427,14 @@ public class GameManager : MonoBehaviour
     public void MoveNext(List<SlotItem> list, SlotItem index1, SlotItem index2, SlotItem index3, int rowspin)
     {
         var sequence = DOTween.Sequence();
-        float time= 0;
+        float time = 0;
         foreach (SlotItem item in list)
         {
             sequence.Insert(time, item.transform.DOLocalMoveY(-30, 0.3f).SetEase(Ease.Linear));
             sequence.Append(item.transform.DOLocalMoveY(24, 0));
             time += 0.190f;
         }
-       
+
         sequence.SetLoops(rowspin, LoopType.Restart).OnComplete(
             () => index1.transform.DOLocalMoveY(-17.5f, 0.2f).OnComplete(
                 () => index2.transform.DOLocalMoveY(-4f, 0.2f).OnComplete(
@@ -452,7 +452,7 @@ public class GameManager : MonoBehaviour
         confetti.Stop();
 
     }
-        
+
     public void WinEffect()
     {
         var sequence = DOTween.Sequence();
