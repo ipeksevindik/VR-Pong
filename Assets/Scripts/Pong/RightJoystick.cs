@@ -8,6 +8,7 @@ public class RightJoystick : MonoBehaviour, IPlayerMovement
     public GameObject BottomWall;
 
     public GameObject Player;
+    public Rigidbody rb;
     private HingeJoint hj;
     public Ball ball;
 
@@ -22,6 +23,7 @@ public class RightJoystick : MonoBehaviour, IPlayerMovement
     private void Start()
     {
         hj = GetComponent<HingeJoint>();
+        rb = Player.transform.GetComponent<Rigidbody>();
         objectHeight = Player.transform.GetComponent<SpriteRenderer>().bounds.size.y / 2;
 
     }
@@ -42,11 +44,19 @@ public class RightJoystick : MonoBehaviour, IPlayerMovement
     {
         if (hj.angle < hj.limits.min + threshold)
         {
-            Player.transform.position += new Vector3(0, 0.3f, 0) * Time.deltaTime;
+            Vector3 fVelocity = new Vector3(0, 0.3f, 0);
+            rb.velocity = fVelocity;
+
         }
         if (hj.angle > hj.limits.max - threshold)
         {
-            Player.transform.position -= new Vector3(0, 0.3f, 0) * Time.deltaTime;
+            Vector3 fVelocity = new Vector3(0, -0.3f, 0);
+            rb.velocity = fVelocity;
+        }
+        if (hj.angle > hj.limits.min + threshold && hj.angle < hj.limits.max - threshold)
+        {
+            Vector3 fVelocity = new Vector3(0, 0, 0);
+            rb.velocity = fVelocity;
         }
 
     }

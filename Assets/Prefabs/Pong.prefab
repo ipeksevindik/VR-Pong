@@ -438,6 +438,7 @@ MonoBehaviour:
   BottomWall: {fileID: 6122899225682210161}
   Player: {fileID: 5860578585444204781}
   ball: {fileID: 21395932032616902}
+  rb: {fileID: 0}
 --- !u!1 &1470498443
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,7 +535,8 @@ GameObject:
   - component: {fileID: 1948420346}
   - component: {fileID: 5245444237599968683}
   - component: {fileID: 4513833117890100940}
-  - component: {fileID: 938076517105520967}
+  - component: {fileID: 8274307912921774295}
+  - component: {fileID: 7977132235047188687}
   m_Layer: 5
   m_Name: Player_2
   m_TagString: Untagged
@@ -659,11 +661,27 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 938076517105520967}
+  - {fileID: 7977132235047188687}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &938076517105520967
+--- !u!54 &8274307912921774295
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948420344}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!114 &7977132235047188687
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -672,13 +690,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1948420344}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &186772870501636521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,6 +1173,7 @@ MonoBehaviour:
   TopWall: {fileID: 1197238492386980896}
   BottomWall: {fileID: 6122899225682210161}
   Player: {fileID: 1948420344}
+  rb: {fileID: 0}
   ball: {fileID: 21395932032616902}
 --- !u!1 &1139590679528078829
 GameObject:
@@ -2358,7 +2377,8 @@ GameObject:
   - component: {fileID: 942911936}
   - component: {fileID: 6575750575108532230}
   - component: {fileID: 2118916616296120679}
-  - component: {fileID: 771199103805486174}
+  - component: {fileID: 920878314310997783}
+  - component: {fileID: 5986200050329191043}
   m_Layer: 5
   m_Name: Player_1
   m_TagString: Untagged
@@ -2483,11 +2503,27 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 771199103805486174}
+  - {fileID: 5986200050329191043}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &771199103805486174
+--- !u!54 &920878314310997783
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5860578585444204781}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!114 &5986200050329191043
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2496,13 +2532,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5860578585444204781}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &5860578585959179678
 GameObject:
   m_ObjectHideFlags: 0

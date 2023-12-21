@@ -67,18 +67,24 @@ public class Ball : MonoBehaviour
             }
             if (Player1_counter + Player2_counter >= 7)
             {
-                await WaitScore();
-                ResetPosition();
-                Debug.Log("Reset");
-                Player1_counter = 0;
-                Player1_score.text = Player1_counter.ToString();
-
-                Player2_counter = 0;
-                Player2_score.text = Player2_counter.ToString();
+                photonView.RPC(nameof(Score), RpcTarget.AllBuffered);
 
                 isPlaying = false;
             }
         }
+    }
+
+    [PunRPC]
+    public async void Score()
+    {
+        await WaitScore();
+        ResetPosition();
+        Player1_counter = 0;
+        Player1_score.text = Player1_counter.ToString();
+
+        Player2_counter = 0;
+        Player2_score.text = Player2_counter.ToString();
+
     }
 
     async Task WaitScore()
