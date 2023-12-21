@@ -5,7 +5,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
 using UnityEngine.PlayerLoop;
-using static UnityEditor.PlayerSettings;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 using System.Threading.Tasks;
@@ -21,19 +20,22 @@ public class Ball : MonoBehaviour
     public int Player2_counter = 0;
     public GameObject Player1_Goal;
     public GameObject Player2_Goal;
-    private PhotonView photonView;
+    public PhotonView photonView;
 
+    public bool isPlaying;
 
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
         pos = transform.position;
+        isPlaying = false;
     }
 
     [ContextMenu("AddStartingForce")]
     [PunRPC]
     public void AddStartingForce()
     {
+        isPlaying = true;
         ResetPosition();
         float x = UnityEngine.Random.value < 0.5f ? -1.0f : 1.0f;
         float y = UnityEngine.Random.value < 0.5f ? UnityEngine.Random.Range(-1.0f, -0.5f) :
@@ -59,6 +61,10 @@ public class Ball : MonoBehaviour
 
         if (other.gameObject == Player1_Goal.gameObject || other.gameObject == Player2_Goal.gameObject)
         {
+            if (Player1_counter + Player2_counter < 7)
+            {
+                photonView.RPC(nameof(AddStartingForce), RpcTarget.AllBuffered);
+            }
             if (Player1_counter + Player2_counter >= 7)
             {
                 await WaitScore();
@@ -69,11 +75,8 @@ public class Ball : MonoBehaviour
 
                 Player2_counter = 0;
                 Player2_score.text = Player2_counter.ToString();
-            }
-            if (Player1_counter + Player2_counter < 7)
-            {
-                photonView.RPC(nameof(AddStartingForce), RpcTarget.AllBuffered);
-                //AddStartingForce();
+
+                isPlaying = false;
             }
         }
     }

@@ -49,6 +49,7 @@ MonoBehaviour:
   - SelectRandomRowSpin
   - SetItemIndex5
   - SetItemIndex4
+  - AddStartingForce
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

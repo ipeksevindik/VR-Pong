@@ -1420,6 +1420,7 @@ MonoBehaviour:
   Player2_counter: 0
   Player1_Goal: {fileID: 3196333215019468244}
   Player2_Goal: {fileID: 2993529251794409046}
+  isPlaying: 0
 --- !u!212 &163077797830929866
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3434,7 +3435,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3626299400874280953}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7874583379877081116
+--- !u!114 &2848755059690532897
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3443,7 +3444,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6485889787207040097}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b763afbec8038949869993e4a2c190a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -3536,3 +3537,26 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
+  ball: {fileID: 21395932032616902}
+--- !u!114 &2920629093952000910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6485889787207040097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
