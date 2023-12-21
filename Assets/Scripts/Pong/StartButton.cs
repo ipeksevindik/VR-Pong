@@ -7,12 +7,10 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class StartButton : XRSimpleInteractable
 {
     public Ball ball;
-    private PhotonView photonView;
 
     private void Start()
     {
         ball = FindObjectOfType<Ball>();
-        photonView = GetComponent<PhotonView>();
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)

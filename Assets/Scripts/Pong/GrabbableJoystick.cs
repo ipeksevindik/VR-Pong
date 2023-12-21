@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class GrabbableHandler : XRGrabInteractable
+public class GrabbableJoystick : XRGrabInteractable
 {
     public Transform handler;
     public IXRSelectInteractor interactor;
@@ -32,7 +32,6 @@ public class GrabbableHandler : XRGrabInteractable
         base.OnSelectEntered(args);
         interactor = args.interactorObject;
         pView.RequestOwnership();
-
     }
 
 
