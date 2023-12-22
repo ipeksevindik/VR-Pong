@@ -1439,7 +1439,9 @@ MonoBehaviour:
   Player2_counter: 0
   Player1_Goal: {fileID: 3196333215019468244}
   Player2_Goal: {fileID: 2993529251794409046}
-  photonView: {fileID: 0}
+  photonView: {fileID: 5715850839204043283}
+  player_1: {fileID: 6575750575108532230}
+  player_2: {fileID: 5245444237599968683}
   isPlaying: 0
 --- !u!212 &163077797830929866
 SpriteRenderer:

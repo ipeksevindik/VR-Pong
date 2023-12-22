@@ -14,6 +14,8 @@ public class Ball : MonoBehaviour
     public float speed;
     public Rigidbody rb;
     Vector3 pos;
+    Vector3 player1_pos;
+    Vector3 player2_pos;
     public TextMeshProUGUI Player1_score;
     public TextMeshProUGUI Player2_score;
     public int Player1_counter = 0;
@@ -22,12 +24,17 @@ public class Ball : MonoBehaviour
     public GameObject Player2_Goal;
     public PhotonView photonView;
 
+    public PlayerPaddle player_1;
+    public PlayerPaddle player_2;
+
     public bool isPlaying;
 
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
         pos = transform.position;
+        player1_pos = player_1.transform.position;
+        player2_pos = player_2.transform.position;
         isPlaying = false;
     }
 
@@ -36,7 +43,7 @@ public class Ball : MonoBehaviour
     public void AddStartingForce()
     {
         isPlaying = true;
-        ResetPosition();
+        photonView.RPC(nameof(ResetBallPosition), RpcTarget.AllBuffered);
         float x = UnityEngine.Random.value < 0.5f ? -1.0f : 1.0f;
         float y = UnityEngine.Random.value < 0.5f ? UnityEngine.Random.Range(-1.0f, -0.5f) :
                                                     UnityEngine.Random.Range(0.5f, 1.0f);
@@ -65,10 +72,11 @@ public class Ball : MonoBehaviour
             {
                 photonView.RPC(nameof(AddStartingForce), RpcTarget.AllBuffered);
             }
-            if (Player1_counter + Player2_counter >= 7)
+            else if (Player1_counter + Player2_counter >= 7)
             {
+                photonView.RPC(nameof(ResetBallPosition), RpcTarget.AllBuffered);
+                photonView.RPC(nameof(ResetPlayerPosition), RpcTarget.AllBuffered);
                 photonView.RPC(nameof(Score), RpcTarget.AllBuffered);
-
                 isPlaying = false;
             }
         }
@@ -78,7 +86,6 @@ public class Ball : MonoBehaviour
     public async void Score()
     {
         await WaitScore();
-        ResetPosition();
         Player1_counter = 0;
         Player1_score.text = Player1_counter.ToString();
 
@@ -92,8 +99,15 @@ public class Ball : MonoBehaviour
         await Task.Delay(2000);
     }
 
+    [PunRPC]
+    public void ResetPlayerPosition()
+    {
+        player_1.transform.position = player1_pos;
+        player_2.transform.position = player2_pos;
+    }
 
-    public void ResetPosition()
+    [PunRPC]
+    public void ResetBallPosition()
     {
         transform.position = pos;
         rb.velocity = Vector3.zero;

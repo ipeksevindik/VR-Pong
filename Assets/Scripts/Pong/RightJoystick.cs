@@ -46,7 +46,6 @@ public class RightJoystick : MonoBehaviour, IPlayerMovement
         {
             Vector3 fVelocity = new Vector3(0, 0.3f, 0);
             rb.velocity = fVelocity;
-
         }
         if (hj.angle > hj.limits.max - threshold)
         {
