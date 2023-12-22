@@ -51,6 +51,9 @@ MonoBehaviour:
   - SetItemIndex4
   - AddStartingForce
   - Score
+  - ResetPosition
+  - ResetBallPosition
+  - ResetPlayerPosition
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

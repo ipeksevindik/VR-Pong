@@ -43,7 +43,7 @@ public class Ball : MonoBehaviour
     public void AddStartingForce()
     {
         isPlaying = true;
-        photonView.RPC(nameof(ResetBallPosition), RpcTarget.AllBuffered);
+        ResetBallPosition();
         float x = UnityEngine.Random.value < 0.5f ? -1.0f : 1.0f;
         float y = UnityEngine.Random.value < 0.5f ? UnityEngine.Random.Range(-1.0f, -0.5f) :
                                                     UnityEngine.Random.Range(0.5f, 1.0f);
@@ -74,8 +74,8 @@ public class Ball : MonoBehaviour
             }
             else if (Player1_counter + Player2_counter >= 7)
             {
-                photonView.RPC(nameof(ResetBallPosition), RpcTarget.AllBuffered);
-                photonView.RPC(nameof(ResetPlayerPosition), RpcTarget.AllBuffered);
+                ResetBallPosition();
+                ResetPlayerPosition();
                 photonView.RPC(nameof(Score), RpcTarget.AllBuffered);
                 isPlaying = false;
             }
@@ -99,14 +99,12 @@ public class Ball : MonoBehaviour
         await Task.Delay(2000);
     }
 
-    [PunRPC]
     public void ResetPlayerPosition()
     {
         player_1.transform.position = player1_pos;
         player_2.transform.position = player2_pos;
     }
 
-    [PunRPC]
     public void ResetBallPosition()
     {
         transform.position = pos;

@@ -10,7 +10,7 @@ public class StartButton : XRSimpleInteractable
 
     private void Start()
     {
-        ball = FindObjectOfType<Ball>();
+        ball = transform.parent.parent.GetComponentInChildren<Ball>();
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
