@@ -31,7 +31,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5860578586355644733}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -166,7 +166,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5860578586355644733}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -555,7 +555,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5860578586355644733}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1364,7 +1364,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5860578586355644733}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1671,9 +1671,9 @@ GameObject:
   - component: {fileID: 7666340522823012018}
   - component: {fileID: 696826764}
   - component: {fileID: 696826763}
-  - component: {fileID: 8453443562881605194}
+  - component: {fileID: 6098721913377577765}
   m_Layer: 5
-  m_Name: Player2Goal
+  m_Name: LeftPlayerGoal
   m_TagString: goal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1692,7 +1692,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5860578586355644733}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1764,7 +1764,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8453443562881605194
+--- !u!114 &6098721913377577765
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1773,11 +1773,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2993529251794409046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5ea6cbb746b3c849ae11155a02cfd69, type: 3}
+  m_Script: {fileID: 11500000, guid: ba13c66b2731d5f4082c8f7e8e3b8e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player1_score: {fileID: 616906805}
-  Player1_counter: 0
+  score: {fileID: 204268708}
+  counter: 0
   ball: {fileID: 21395932032616902}
 --- !u!1 &3196333215019468244
 GameObject:
@@ -1790,9 +1790,9 @@ GameObject:
   - component: {fileID: 6085156434804071440}
   - component: {fileID: 1508866285377847866}
   - component: {fileID: 2113208338}
-  - component: {fileID: 512961218751690332}
+  - component: {fileID: 3606535014506399669}
   m_Layer: 5
-  m_Name: Player1Goal
+  m_Name: RightPlayerGoal
   m_TagString: goal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1811,7 +1811,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5860578586355644733}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1883,7 +1883,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &512961218751690332
+--- !u!114 &3606535014506399669
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1892,12 +1892,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 3196333215019468244}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5ea6cbb746b3c849ae11155a02cfd69, type: 3}
+  m_Script: {fileID: 11500000, guid: b861e726bc874ee4c9efc2716e25eacc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player1_score: {fileID: 204268708}
-  Player1_counter: 0
+  score: {fileID: 616906805}
+  counter: 0
   ball: {fileID: 21395932032616902}
+--- !u!1 &3269448316999388989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3790929623354141499}
+  - component: {fileID: 1603697969229957532}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3790929623354141499
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269448316999388989}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 141.6072, y: 79.830124, z: 448.88397}
+  m_LocalScale: {x: 400, y: 400.00006, z: 400}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5860578586355644733}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1603697969229957532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269448316999388989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145479ab6b3e7db4e9c4a32411affc2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3461534651848338603
 GameObject:
   m_ObjectHideFlags: 0
@@ -2013,7 +2057,7 @@ RectTransform:
   - {fileID: 2261543795985226814}
   - {fileID: 7423382899484119584}
   m_Father: {fileID: 5860578586355644733}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2362,7 +2406,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5860578586355644733}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2537,6 +2581,7 @@ RectTransform:
   m_LocalScale: {x: 0.0049999994, y: 0.005, z: 0.0049999994}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3790929623354141499}
   - {fileID: 5860578585444204778}
   - {fileID: 1948420345}
   - {fileID: 6085156434804071440}

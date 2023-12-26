@@ -2,16 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class LeftPlayer : MonoBehaviour
 {
+    public Action LeftOnCollidedBall;
     public TextMeshProUGUI score;
-    public float counter;
+    public int counter;
     public Ball ball;
+    PongGameManager gameManager;
 
-    void Start()
+
+    private void OnEnable()
+    {
+        LeftOnCollidedBall += gameManager.RightScoreIncrease;
+    }
+
+    private void OnDisable()
+    {
+        LeftOnCollidedBall -= gameManager.RightScoreIncrease;
+
+    }
+
+    void Awake()
     {
         ball = transform.parent.GetComponentInChildren<Ball>();
+        gameManager = transform.parent.GetComponentInChildren<PongGameManager>();
 
     }
 
@@ -19,8 +35,7 @@ public class LeftPlayer : MonoBehaviour
     {
         if (other.gameObject == ball.gameObject)
         {
-            counter++;
-            score.text = counter.ToString();
+            LeftOnCollidedBall?.Invoke();
         }
     }
 }

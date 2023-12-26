@@ -6,21 +6,33 @@ using System;
 
 public class RightPlayer : MonoBehaviour
 {
-    public Action OnCollidedBall;
-    public TextMeshProUGUI core;
-    public float counter;
+    public Action RightOnCollidedBall;
+    public TextMeshProUGUI score;
+    public int counter;
     public Ball ball;
+    PongGameManager gameManager;
 
-    void Start()
+    private void OnEnable()
     {
+        RightOnCollidedBall += gameManager.RightScoreIncrease;
+    }
+
+    private void OnDisable()
+    {
+        RightOnCollidedBall -= gameManager.RightScoreIncrease;
+
+    }
+
+    void Awake()
+    {
+        gameManager = transform.parent.GetComponentInChildren<PongGameManager>();
         ball = transform.parent.GetComponentInChildren<Ball>();
-        //leftPaddle.OnCollidedBall += LeftScoreIncrease();
 
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject == ball.gameObject)
-            OnCollidedBall.Invoke();
+            RightOnCollidedBall?.Invoke();
     }
 }
