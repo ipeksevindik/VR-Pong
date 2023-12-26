@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 204268709}
   - component: {fileID: 204268708}
   m_Layer: 5
-  m_Name: Player1_Score
+  m_Name: Left_Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 616906806}
   - component: {fileID: 616906805}
   m_Layer: 5
-  m_Name: Player2_Score
+  m_Name: Right_Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -533,11 +533,10 @@ GameObject:
   - component: {fileID: 1948420345}
   - component: {fileID: 1948420347}
   - component: {fileID: 1948420346}
-  - component: {fileID: 5245444237599968683}
   - component: {fileID: 4513833117890100940}
   - component: {fileID: 8274307912921774295}
   m_Layer: 5
-  m_Name: Player_2
+  m_Name: RightPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -628,19 +627,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5245444237599968683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1948420344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37b479745efd8543ba2a9c688f67f7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ball: {fileID: 21395932032616902}
 --- !u!114 &4513833117890100940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1252,7 +1238,6 @@ GameObject:
   - component: {fileID: 2261543795985226814}
   - component: {fileID: 3974642940899742064}
   - component: {fileID: 1435299770}
-  - component: {fileID: 7478176338467394282}
   m_Layer: 5
   m_Name: Top Wall
   m_TagString: Untagged
@@ -1345,20 +1330,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7478176338467394282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1197238492386980896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d8969bb0244f6044bac6bf47a881eeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Wall: {fileID: 1197238492386980896}
-  ball: {fileID: 21395932032616902}
 --- !u!1 &1357364399513010944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,15 +1385,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   rb: {fileID: 9124727650912364516}
-  Player1_score: {fileID: 204268708}
-  Player2_score: {fileID: 616906805}
   Player1_counter: 0
   Player2_counter: 0
-  Player1_Goal: {fileID: 3196333215019468244}
-  Player2_Goal: {fileID: 2993529251794409046}
   photonView: {fileID: 5715850839204043283}
-  player_1: {fileID: 6575750575108532230}
-  player_2: {fileID: 5245444237599968683}
+  player_1: {fileID: 5860578585444204781}
+  player_2: {fileID: 1948420344}
   isPlaying: 0
 --- !u!212 &163077797830929866
 SpriteRenderer:
@@ -1704,6 +1671,7 @@ GameObject:
   - component: {fileID: 7666340522823012018}
   - component: {fileID: 696826764}
   - component: {fileID: 696826763}
+  - component: {fileID: 8453443562881605194}
   m_Layer: 5
   m_Name: Player2Goal
   m_TagString: goal
@@ -1796,6 +1764,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8453443562881605194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2993529251794409046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5ea6cbb746b3c849ae11155a02cfd69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player1_score: {fileID: 616906805}
+  Player1_counter: 0
+  ball: {fileID: 21395932032616902}
 --- !u!1 &3196333215019468244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1807,6 +1790,7 @@ GameObject:
   - component: {fileID: 6085156434804071440}
   - component: {fileID: 1508866285377847866}
   - component: {fileID: 2113208338}
+  - component: {fileID: 512961218751690332}
   m_Layer: 5
   m_Name: Player1Goal
   m_TagString: goal
@@ -1899,6 +1883,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &512961218751690332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3196333215019468244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5ea6cbb746b3c849ae11155a02cfd69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player1_score: {fileID: 204268708}
+  Player1_counter: 0
+  ball: {fileID: 21395932032616902}
 --- !u!1 &3461534651848338603
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,11 +2340,10 @@ GameObject:
   - component: {fileID: 5860578585444204778}
   - component: {fileID: 6824004542999142331}
   - component: {fileID: 942911936}
-  - component: {fileID: 6575750575108532230}
   - component: {fileID: 2118916616296120679}
   - component: {fileID: 920878314310997783}
   m_Layer: 5
-  m_Name: Player_1
+  m_Name: LeftPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2436,19 +2434,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6575750575108532230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5860578585444204781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37b479745efd8543ba2a9c688f67f7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ball: {fileID: 21395932032616902}
 --- !u!114 &2118916616296120679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2738,7 +2723,6 @@ GameObject:
   - component: {fileID: 7423382899484119584}
   - component: {fileID: 6842488948159334785}
   - component: {fileID: 1209831222}
-  - component: {fileID: 8332778014598145278}
   m_Layer: 5
   m_Name: Bottom Wall
   m_TagString: Untagged
@@ -2831,20 +2815,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8332778014598145278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6122899225682210161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d8969bb0244f6044bac6bf47a881eeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Wall: {fileID: 6122899225682210161}
-  ball: {fileID: 21395932032616902}
 --- !u!1 &6701443613691424833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3390,7 +3360,7 @@ PrefabInstance:
     - target: {fileID: 7516989854951799701, guid: d2d6934a666a18d46b8b7a3864dc9f63,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2d6934a666a18d46b8b7a3864dc9f63, type: 3}

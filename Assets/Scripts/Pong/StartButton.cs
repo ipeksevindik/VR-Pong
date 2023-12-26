@@ -21,9 +21,18 @@ public class StartButton : XRSimpleInteractable
         if (!ball.isPlaying)
         {
             Debug.Log("ball stopped");
-
             ball.photonView.RPC("AddStartingForce", RpcTarget.AllBuffered);
         }
 
+    }
+
+    [ContextMenu("StartGame")]
+    public void StartGame()
+    {
+        if (!ball.isPlaying)
+        {
+            Debug.Log("neden çalışmıyosun????");
+            ball.photonView.RPC("AddStartingForce", RpcTarget.AllBuffered);
+        }
     }
 }

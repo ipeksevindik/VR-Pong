@@ -7,7 +7,6 @@ using TMPro;
 using UnityEngine.PlayerLoop;
 using UnityEngine.InputSystem;
 using Photon.Pun;
-using System.Threading.Tasks;
 
 public class Ball : MonoBehaviour
 {
@@ -16,18 +15,16 @@ public class Ball : MonoBehaviour
     Vector3 pos;
     Vector3 player1_pos;
     Vector3 player2_pos;
-    public TextMeshProUGUI Player1_score;
-    public TextMeshProUGUI Player2_score;
+
     public int Player1_counter = 0;
     public int Player2_counter = 0;
-    public GameObject Player1_Goal;
-    public GameObject Player2_Goal;
     public PhotonView photonView;
 
-    public PlayerPaddle player_1;
-    public PlayerPaddle player_2;
+    public GameObject player_1;
+    public GameObject player_2;
 
     public bool isPlaying;
+
 
     private void Start()
     {
@@ -38,66 +35,73 @@ public class Ball : MonoBehaviour
         isPlaying = false;
     }
 
-    [ContextMenu("AddStartingForce")]
     [PunRPC]
     public void AddStartingForce()
     {
         isPlaying = true;
         ResetBallPosition();
+
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+        Vector3 direction = BallMove();
+
+        photonView.RPC(nameof(SetVelocityRPC), RpcTarget.All, direction);
+    }
+
+    [PunRPC]
+    private void SetVelocityRPC(Vector3 direction)
+    {
+        rb.AddForce(direction * this.speed);
+    }
+
+    public Vector3 BallMove()
+    {
         float x = UnityEngine.Random.value < 0.5f ? -1.0f : 1.0f;
         float y = UnityEngine.Random.value < 0.5f ? UnityEngine.Random.Range(-1.0f, -0.5f) :
                                                     UnityEngine.Random.Range(0.5f, 1.0f);
 
-        Vector3 direction = new Vector3(0, x, y);
-        rb.AddForce(direction * this.speed);
+        Vector3 dir = new Vector3(0, x, y).normalized;
+
+        return dir;
     }
 
-    private async void OnCollisionEnter(Collision other)
+
+    private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject == Player1_Goal.gameObject)
-        {
-            Player1_counter++;
-            Player1_score.text = Player1_counter.ToString();
-        }
+        ContactPoint contactPoint = other.contacts[0];
+        Vector3 normal = Perpendiculate(contactPoint.normal);
+        Vector3 newVelocity = Vector3.Reflect(rb.velocity, normal);
+        rb.velocity = newVelocity;
+        //Debug.Break();
 
-        if (other.gameObject == Player2_Goal.gameObject)
-        {
-            Player2_counter++;
-            Player2_score.text = Player2_counter.ToString();
-        }
+        if (!PhotonNetwork.IsMasterClient)
+            return;
 
-        if (other.gameObject == Player1_Goal.gameObject || other.gameObject == Player2_Goal.gameObject)
-        {
-            if (Player1_counter + Player2_counter < 7)
-            {
-                photonView.RPC(nameof(AddStartingForce), RpcTarget.AllBuffered);
-            }
-            else if (Player1_counter + Player2_counter >= 7)
-            {
-                ResetBallPosition();
-                ResetPlayerPosition();
-                photonView.RPC(nameof(Score), RpcTarget.AllBuffered);
-                isPlaying = false;
-            }
-        }
+        photonView.RPC(nameof(BallNewVelocity), RpcTarget.Others, newVelocity, rb.position);
+
+
+
+    }
+
+    private Vector3 Perpendiculate(Vector3 normal)
+    {
+        float max = Mathf.Max(Mathf.Abs(normal.x), Mathf.Abs(normal.y), Mathf.Abs(normal.z));
+        if (Mathf.Abs(normal.x) == max)
+            return (Vector3.right * normal.x).normalized;
+        if (Mathf.Abs(normal.y) == max)
+            return (Vector3.up * normal.y).normalized;
+        return (Vector3.forward * normal.z).normalized;
     }
 
     [PunRPC]
-    public async void Score()
+    public void BallNewVelocity(Vector3 newVelocity, Vector3 pos)
     {
-        await WaitScore();
-        Player1_counter = 0;
-        Player1_score.text = Player1_counter.ToString();
-
-        Player2_counter = 0;
-        Player2_score.text = Player2_counter.ToString();
-
+        rb.position = pos;
+        rb.position += newVelocity * PhotonNetwork.GetPing() * .001f;
+        rb.velocity = newVelocity;
+        Debug.DrawRay(pos, newVelocity, Color.blue, 20f);
     }
 
-    async Task WaitScore()
-    {
-        await Task.Delay(2000);
-    }
 
     public void ResetPlayerPosition()
     {
@@ -105,6 +109,7 @@ public class Ball : MonoBehaviour
         player_2.transform.position = player2_pos;
     }
 
+    [PunRPC]
     public void ResetBallPosition()
     {
         transform.position = pos;
@@ -112,3 +117,5 @@ public class Ball : MonoBehaviour
     }
 
 }
+
+
