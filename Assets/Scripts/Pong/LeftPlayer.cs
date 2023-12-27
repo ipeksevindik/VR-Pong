@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using Photon.Pun;
+
 
 public class LeftPlayer : MonoBehaviour
 {
@@ -15,13 +17,12 @@ public class LeftPlayer : MonoBehaviour
 
     private void OnEnable()
     {
-        LeftOnCollidedBall += gameManager.RightScoreIncrease;
+        LeftOnCollidedBall += gameManager.LeftScoreIncrease;
     }
 
     private void OnDisable()
     {
-        LeftOnCollidedBall -= gameManager.RightScoreIncrease;
-
+        LeftOnCollidedBall -= gameManager.LeftScoreIncrease;
     }
 
     void Awake()
@@ -35,7 +36,14 @@ public class LeftPlayer : MonoBehaviour
     {
         if (other.gameObject == ball.gameObject)
         {
+            Debug.Log("left player");
             LeftOnCollidedBall?.Invoke();
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+            ball.photonView.RPC("AddStartingForce", RpcTarget.AllBuffered);
+
         }
     }
 }

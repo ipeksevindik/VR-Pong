@@ -15,6 +15,8 @@ public class PongGameManager : MonoBehaviourPun
     [SerializeField]
     Ball ball;
 
+    int counter;
+
     public void RightScoreIncrease()
     {
         if (!PhotonNetwork.IsMasterClient)
@@ -24,6 +26,7 @@ public class PongGameManager : MonoBehaviourPun
         rightPlayer.counter++;
 
         photonView.RPC(nameof(RightScoreUpdateRPC), RpcTarget.All, rightPlayer.counter);
+
     }
 
     [PunRPC]
@@ -31,6 +34,7 @@ public class PongGameManager : MonoBehaviourPun
     {
         rightPlayer.counter = counter;
         rightPlayer.score.text = rightPlayer.counter.ToString();
+
     }
 
     public void LeftScoreIncrease()
@@ -42,9 +46,9 @@ public class PongGameManager : MonoBehaviourPun
         leftPlayer.counter++;
 
         photonView.RPC(nameof(LeftScoreUpdateRPC), RpcTarget.All, leftPlayer.counter);
-
     }
 
+    [PunRPC]
     private void LeftScoreUpdateRPC(int counter)
     {
         leftPlayer.counter = counter;
@@ -52,16 +56,19 @@ public class PongGameManager : MonoBehaviourPun
     }
 
 
-    public void ResetScore()
+    [PunRPC]
+    public void ResetScore(int Counter)
     {
-        if (!PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
             return;
         }
 
-        leftPlayer.counter = 0;
-        rightPlayer.counter = 0;
+        ball.photonView.RPC("ResetBallPosition", RpcTarget.All);
 
+        counter = Counter;
+        LeftScoreUpdateRPC(0);
+        RightScoreUpdateRPC(0);
 
     }
 }

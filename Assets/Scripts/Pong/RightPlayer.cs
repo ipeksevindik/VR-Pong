@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using Photon.Pun;
+
 
 public class RightPlayer : MonoBehaviour
 {
@@ -33,6 +35,15 @@ public class RightPlayer : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject == ball.gameObject)
+        {
+            Debug.Log("right player");
             RightOnCollidedBall?.Invoke();
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+            ball.photonView.RPC("AddStartingForce", RpcTarget.AllBuffered);
+
+        }
     }
 }

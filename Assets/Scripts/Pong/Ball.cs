@@ -38,11 +38,12 @@ public class Ball : MonoBehaviour
     [PunRPC]
     public void AddStartingForce()
     {
-        isPlaying = true;
-        ResetBallPosition();
-
         if (!PhotonNetwork.IsMasterClient)
             return;
+
+        isPlaying = true;
+        photonView.RPC(nameof(ResetBallPosition), RpcTarget.All);
+
         Vector3 direction = BallMove();
 
         photonView.RPC(nameof(SetVelocityRPC), RpcTarget.All, direction);
@@ -102,19 +103,19 @@ public class Ball : MonoBehaviour
         Debug.DrawRay(pos, newVelocity, Color.blue, 20f);
     }
 
-
-    public void ResetPlayerPosition()
-    {
-        player_1.transform.position = player1_pos;
-        player_2.transform.position = player2_pos;
-    }
-
     [PunRPC]
     public void ResetBallPosition()
     {
         transform.position = pos;
         rb.velocity = Vector3.zero;
     }
+
+    // public void ResetPlayerPosition()
+    // {
+    //     player_1.transform.position = player1_pos;
+    //     player_2.transform.position = player2_pos;
+    // }
+
 
 }
 

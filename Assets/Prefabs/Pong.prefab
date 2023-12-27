@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 204268709}
   - component: {fileID: 204268708}
   m_Layer: 5
-  m_Name: Left_Score
+  m_Name: Right_Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 616906806}
   - component: {fileID: 616906805}
   m_Layer: 5
-  m_Name: Right_Score
+  m_Name: Left_Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1776,7 +1776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba13c66b2731d5f4082c8f7e8e3b8e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: {fileID: 204268708}
+  score: {fileID: 616906805}
   counter: 0
   ball: {fileID: 21395932032616902}
 --- !u!1 &3196333215019468244
@@ -1895,7 +1895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b861e726bc874ee4c9efc2716e25eacc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: {fileID: 616906805}
+  score: {fileID: 204268708}
   counter: 0
   ball: {fileID: 21395932032616902}
 --- !u!1 &3269448316999388989
@@ -1908,6 +1908,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3790929623354141499}
   - component: {fileID: 1603697969229957532}
+  - component: {fileID: 295940105}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1942,6 +1943,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 145479ab6b3e7db4e9c4a32411affc2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rightPlayer: {fileID: 3606535014506399669}
+  leftPlayer: {fileID: 6098721913377577765}
+  ball: {fileID: 21395932032616902}
+--- !u!114 &295940105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269448316999388989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &3461534651848338603
 GameObject:
   m_ObjectHideFlags: 0
