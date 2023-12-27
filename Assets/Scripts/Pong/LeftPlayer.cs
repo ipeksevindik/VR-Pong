@@ -12,24 +12,10 @@ public class LeftPlayer : MonoBehaviour
     public TextMeshProUGUI score;
     public int counter;
     public Ball ball;
-    PongGameManager gameManager;
-
-
-    private void OnEnable()
-    {
-        LeftOnCollidedBall += gameManager.LeftScoreIncrease;
-    }
-
-    private void OnDisable()
-    {
-        LeftOnCollidedBall -= gameManager.LeftScoreIncrease;
-    }
 
     void Awake()
     {
         ball = transform.parent.GetComponentInChildren<Ball>();
-        gameManager = transform.parent.GetComponentInChildren<PongGameManager>();
-
     }
 
     private void OnCollisionEnter(Collision other)
@@ -38,12 +24,6 @@ public class LeftPlayer : MonoBehaviour
         {
             Debug.Log("left player");
             LeftOnCollidedBall?.Invoke();
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                return;
-            }
-            ball.photonView.RPC("AddStartingForce", RpcTarget.AllBuffered);
-
         }
     }
 }

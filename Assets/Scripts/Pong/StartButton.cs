@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class StartButton : XRSimpleInteractable
 {
     public Ball ball;
+    public PongGameManager pongGameManager = null;
 
     private void Start()
     {
@@ -18,10 +19,11 @@ public class StartButton : XRSimpleInteractable
         base.OnSelectEntered(args);
         Debug.Log("select entered");
 
-        if (!ball.isPlaying)
+        if (!pongGameManager.IsPlaying)
         {
             Debug.Log("ball stopped");
-            ball.photonView.RPC("AddStartingForce", RpcTarget.AllBuffered);
+            pongGameManager.StartGame();
+            // ball.photonView.RPC("AddStartingForce", RpcTarget.AllBuffered);
         }
 
     }
@@ -29,10 +31,11 @@ public class StartButton : XRSimpleInteractable
     [ContextMenu("StartGame")]
     public void StartGame()
     {
-        if (!ball.isPlaying)
+        if (!pongGameManager.IsPlaying)
         {
             Debug.Log("neden çalışmıyosun????");
-            ball.photonView.RPC("AddStartingForce", RpcTarget.AllBuffered);
+            pongGameManager.StartGame();
+            // ball.photonView.RPC("AddStartingForce", RpcTarget.AllBuffered);
         }
     }
 }

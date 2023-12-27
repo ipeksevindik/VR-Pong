@@ -12,24 +12,10 @@ public class RightPlayer : MonoBehaviour
     public TextMeshProUGUI score;
     public int counter;
     public Ball ball;
-    PongGameManager gameManager;
-
-    private void OnEnable()
-    {
-        RightOnCollidedBall += gameManager.RightScoreIncrease;
-    }
-
-    private void OnDisable()
-    {
-        RightOnCollidedBall -= gameManager.RightScoreIncrease;
-
-    }
 
     void Awake()
     {
-        gameManager = transform.parent.GetComponentInChildren<PongGameManager>();
         ball = transform.parent.GetComponentInChildren<Ball>();
-
     }
 
     private void OnCollisionEnter(Collision other)
@@ -38,12 +24,8 @@ public class RightPlayer : MonoBehaviour
         {
             Debug.Log("right player");
             RightOnCollidedBall?.Invoke();
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                return;
-            }
-            ball.photonView.RPC("AddStartingForce", RpcTarget.AllBuffered);
-
         }
     }
+
+
 }
