@@ -573,8 +573,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.018, y: 1.6364883, z: 0.08400209}
-  m_Center: {x: -0.08, y: -0.006552786, z: -0.025968576}
+  m_Size: {x: 0.06, y: 1.5, z: 0.039219875}
+  m_Center: {x: 0.0054205223, y: -0.0003350154, z: 0.0042873956}
 --- !u!212 &1948420346
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1276,7 +1276,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 24.816122, y: 0.5653893, z: 1.696027}
+  m_Size: {x: 24.2, y: 0.1, z: 0}
   m_Center: {x: 0.18371795, y: 0.068744086, z: 0.34802526}
 --- !u!212 &1435299770
 SpriteRenderer:
@@ -1383,14 +1383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24994d639f5c82e4da66e1334f51fe6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
   rb: {fileID: 9124727650912364516}
-  Player1_counter: 0
-  Player2_counter: 0
   photonView: {fileID: 5715850839204043283}
-  player_1: {fileID: 5860578585444204781}
-  player_2: {fileID: 1948420344}
-  isPlaying: 0
 --- !u!212 &163077797830929866
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1490,7 +1484,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 21395932032616902}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1943,8 +1938,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 145479ab6b3e7db4e9c4a32411affc2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightPlayer: {fileID: 3606535014506399669}
-  leftPlayer: {fileID: 6098721913377577765}
+  ballStartSpeed: 0.25
+  rightPlayerGoal: {fileID: 3606535014506399669}
+  leftPlayerGoal: {fileID: 6098721913377577765}
+  leftPlayer: {fileID: 5860578585444204778}
+  rightPlayer: {fileID: 1948420345}
   ball: {fileID: 21395932032616902}
 --- !u!114 &295940105
 MonoBehaviour:
@@ -2450,8 +2448,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.018, y: 1.6364883, z: 0.08400209}
-  m_Center: {x: 0.08, y: -0.006552786, z: -0.025968576}
+  m_Size: {x: 0.06, y: 1.5, z: 0.039219875}
+  m_Center: {x: 0.0054205223, y: -0.0003350154, z: 0.0042873956}
 --- !u!212 &942911936
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2832,8 +2830,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 23.33924, y: 0.5653893, z: 1.696027}
-  m_Center: {x: 0.14285001, y: 0.068744086, z: 0.3480253}
+  m_Size: {x: 24.2, y: 0.1, z: 0}
+  m_Center: {x: 0.18371795, y: 0.068744086, z: 0.34802526}
 --- !u!212 &1209831222
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3368,6 +3366,11 @@ PrefabInstance:
       propertyPath: ball
       value: 
       objectReference: {fileID: 21395932032616902}
+    - target: {fileID: 4961611026677871752, guid: d2d6934a666a18d46b8b7a3864dc9f63,
+        type: 3}
+      propertyPath: pongGameManager
+      value: 
+      objectReference: {fileID: 1603697969229957532}
     - target: {fileID: 7516989854395125638, guid: d2d6934a666a18d46b8b7a3864dc9f63,
         type: 3}
       propertyPath: m_RootOrder

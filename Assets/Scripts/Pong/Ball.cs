@@ -8,6 +8,7 @@ using UnityEngine.PlayerLoop;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 using UnityEngine.SocialPlatforms.Impl;
+using System.Collections;
 
 public class Ball : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class Ball : MonoBehaviour
     public PhotonView photonView;
 
     PongGameManager gameManager;
+    private Vector3 ballVelocity;
+    private Coroutine lerpCoroutine;
 
     private void Awake()
     {
@@ -24,16 +27,18 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        ContactPoint contactPoint = other.contacts[0];
+        Vector3 normal = Perpendiculate(contactPoint.normal);
+        ballVelocity = Vector3.Reflect(ballVelocity, normal);
+
+        rb.velocity = ballVelocity;
+        // Debug.DrawRay(contactPoint.point, normal, Color.cyan, 20f);
+        // Debug.DrawRay(contactPoint.point, ballVelocity, Color.yellow, 20f);
+
         if (!PhotonNetwork.IsMasterClient)
             return;
 
-        ContactPoint contactPoint = other.contacts[0];
-        Vector3 normal = Perpendiculate(contactPoint.normal);
-        Vector3 newVelocity = Vector3.Reflect(rb.velocity, normal);
-
-        rb.velocity = newVelocity;
-
-        photonView.RPC(nameof(BallNewVelocity), RpcTarget.Others, newVelocity, rb.position);
+        photonView.RPC(nameof(BallNewVelocity), RpcTarget.Others, ballVelocity, rb.position, true);
 
     }
 
@@ -48,13 +53,60 @@ public class Ball : MonoBehaviour
     }
 
     [PunRPC]
-    public void BallNewVelocity(Vector3 newVelocity, Vector3 pos)
+    public void BallNewVelocity(Vector3 newVelocity, Vector3 pos, bool lerp = false)
     {
-        rb.position = pos;
-        rb.position += newVelocity * PhotonNetwork.GetPing() * .001f;
+        if (lerpCoroutine is not null)
+            StopCoroutine(lerpCoroutine);
+
+        ballVelocity = newVelocity;
+        Vector3 newPosition = pos + newVelocity * PhotonNetwork.GetPing() * .0005f;
+        // rb.position = Vector3.Lerp(rb.position, newPosition, 0.5f); // ? 
+
+
         rb.velocity = newVelocity;
-        Debug.DrawRay(pos, newVelocity, Color.blue, 20f);
+
+        Debug.DrawLine(newPosition, newPosition + newVelocity * .25f, Color.blue, 2f);
+        // Debug.DrawRay(pos, newVelocity, Color.blue, 20f);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            rb.position = pos;
+            return;
+        }
+        if (lerp)
+            lerpCoroutine = StartCoroutine(LerpNewPosition(rb.position, newPosition, newVelocity));
+        else
+            rb.position = pos;
     }
+
+    IEnumerator LerpNewPosition(Vector3 a, Vector3 b, Vector3 newVelocity)
+    {
+        float t = 0f;
+        // Debug.DrawLine(a, a + oldVelocity * .25f, Color.green, 2f);
+        rb.velocity = newVelocity;
+        while (t <= .25f)
+        {
+            Vector3 projectedOld = a + t * newVelocity;
+            Vector3 projectedNew = b + t * newVelocity;
+            // Debug.DrawLine(a, projectedOld, Color.magenta, .1f);
+            Debug.DrawLine(b, projectedNew, Color.red, .1f);
+            transform.position = Vector3.Lerp(projectedOld, projectedNew, t);
+            t += Time.deltaTime;
+            rb.velocity = newVelocity;
+            yield return new WaitForEndOfFrame();
+        }
+        transform.position = b + t * newVelocity;
+        rb.velocity = newVelocity;
+    }
+
+
+    public void SetBallVelocity(Vector3 newVelocity)
+    {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
+        photonView.RPC(nameof(BallNewVelocity), RpcTarget.All, newVelocity, transform.position, false);
+    }
+
 }
 
 

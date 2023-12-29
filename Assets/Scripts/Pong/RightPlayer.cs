@@ -13,9 +13,11 @@ public class RightPlayer : MonoBehaviour
     public int counter;
     public Ball ball;
 
+
     void Awake()
     {
         ball = transform.parent.GetComponentInChildren<Ball>();
+
     }
 
     private void OnCollisionEnter(Collision other)

@@ -304,7 +304,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void CheckLines(SlotItem item1, SlotItem item2, SlotItem item3, SlotItem item4, SlotItem item5)
+    public async void CheckLines(SlotItem item1, SlotItem item2, SlotItem item3, SlotItem item4, SlotItem item5)
     {
 
         if (item1.ItemId == item2.ItemId)
@@ -330,7 +330,7 @@ public class GameManager : MonoBehaviour
                         JackpotLine(item1, item2, item3, item4, item5);
 
 
-                        ConfettiPlay();
+                        await ConfettiPlay();
                         WinEffect();
 
                     }
@@ -354,9 +354,9 @@ public class GameManager : MonoBehaviour
     }
 
     [ContextMenu(nameof(Test))]
-    public void Test()
+    public async void Test()
     {
-        ConfettiPlay();
+        await ConfettiPlay();
         WinEffect();
     }
 

@@ -1,35 +1,57 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Photon.Pun;
 using UnityEngine;
 
 public class PongGameManager : MonoBehaviourPun
 {
-    [SerializeField] float ballStartSpeed = .5f;
-    [SerializeField] Transform ballInitialTransform = null;
-    [SerializeField] Transform leftInitialTransform = null;
-    [SerializeField] Transform rightInitialTransform = null;
+    [SerializeField] float ballStartSpeed = 0.01f;
+
     [SerializeField]
     RightPlayer rightPlayerGoal;
 
     [SerializeField]
     LeftPlayer leftPlayerGoal;
+
     [SerializeField]
     Transform leftPlayer;
+
     [SerializeField]
     Transform rightPlayer;
 
     [SerializeField]
     Ball ball;
+
     public bool IsPlaying { get; protected set; }
 
     public int TotalScore => rightPlayerGoal.counter + leftPlayerGoal.counter;
+    Vector3 ball_pos;
+    Vector3 right_pos;
+    Vector3 left_pos;
+
+    private Vector3 player_pos;
+
+
+    private void Awake()
+    {
+        ball_pos = ball.transform.position;
+        right_pos = rightPlayer.transform.position;
+        left_pos = leftPlayer.transform.position;
+    }
+
+    private void Start()
+    {
+        Invoke(nameof(SetPlayersPosition), 1);
+
+    }
 
     private void OnEnable()
     {
         rightPlayerGoal.RightOnCollidedBall += RightScoreIncrease;
         leftPlayerGoal.LeftOnCollidedBall += LeftScoreIncrease;
+
     }
 
     private void OnDisable()
@@ -43,6 +65,8 @@ public class PongGameManager : MonoBehaviourPun
         Vector3 startingDirection = GenerateRandomDirection();
         photonView.RPC(nameof(StartGameRPC), RpcTarget.All, startingDirection);
     }
+
+    #region "Score"
 
     public void RightScoreIncrease()
     {
@@ -82,10 +106,31 @@ public class PongGameManager : MonoBehaviourPun
         photonView.RPC(nameof(LeftScoreUpdateRPC), RpcTarget.All, leftPlayerGoal.counter, randomDirection);
     }
 
+    [PunRPC]
+    private void RightScoreUpdateRPC(int counter, Vector3 direction)
+    {
+        SetRightCounter(counter);
+        ResetBallPosition();
+        ball.SetBallVelocity(direction * ballStartSpeed);
+
+    }
+
+    [PunRPC]
+    private void LeftScoreUpdateRPC(int counter, Vector3 direction)
+    {
+        SetLeftCounter(counter);
+        ResetBallPosition();
+        ball.SetBallVelocity(direction * ballStartSpeed);
+
+    }
+
+
+    #endregion
+
     private void ResetPlayerPositions()
     {
-        rightPlayer.transform.position = rightInitialTransform.position;
-        leftPlayer.transform.position = leftInitialTransform.position;
+        rightPlayer.transform.position = right_pos;
+        leftPlayer.transform.position = left_pos;
     }
 
     private void SetRightCounter(int count)
@@ -100,10 +145,9 @@ public class PongGameManager : MonoBehaviourPun
         leftPlayerGoal.score.text = leftPlayerGoal.counter.ToString();
     }
 
-    private void ResetBall(Vector3 velocity)
+    private void ResetBallPosition()
     {
-        ball.transform.position = ballInitialTransform.position;
-        ball.rb.velocity = velocity;
+        ball.transform.position = ball_pos;
     }
 
     public Vector3 GenerateRandomDirection()
@@ -117,17 +161,12 @@ public class PongGameManager : MonoBehaviourPun
         return dir;
     }
 
-    [PunRPC]
-    private void RightScoreUpdateRPC(int counter, Vector3 direction)
-    {
-        SetRightCounter(counter);
-        ResetBall(direction * ballStartSpeed);
-    }
 
     [PunRPC]
     private void EndGameRPC()
     {
-        ResetBall(Vector3.zero);
+        ResetBallPosition();
+        ball.SetBallVelocity(Vector3.zero);
         SetLeftCounter(0);
         SetRightCounter(0);
         ResetPlayerPositions();
@@ -135,17 +174,13 @@ public class PongGameManager : MonoBehaviourPun
         IsPlaying = false;
     }
 
-    [PunRPC]
-    private void LeftScoreUpdateRPC(int counter, Vector3 direction)
-    {
-        SetLeftCounter(counter);
-        ResetBall(direction * ballStartSpeed);
-    }
 
     [PunRPC]
     public void ResetBallPositionRPC()
     {
-        ResetBall(Vector3.zero);
+        ResetBallPosition();
+        ball.SetBallVelocity(Vector3.zero);
+
     }
 
     [PunRPC]
@@ -154,10 +189,29 @@ public class PongGameManager : MonoBehaviourPun
         ResetPlayerPositions();
     }
 
+    public void SetPlayersPosition()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
+        photonView.RPC(nameof(SetPlayersPositionRPC), RpcTarget.All, leftPlayer.transform.position, rightPlayer.transform.position);
+        Invoke(nameof(SetPlayersPosition), 1);
+
+    }
+
+    [PunRPC]
+    public void SetPlayersPositionRPC(Vector3 leftPosition, Vector3 rightPosition)
+    {
+        leftPlayer.transform.position = leftPosition;
+        rightPlayer.transform.position = rightPosition;
+
+    }
+
     [PunRPC]
     private void StartGameRPC(Vector3 direction)
     {
-        ResetBall(direction * ballStartSpeed);
+        ResetBallPosition();
+        ball.SetBallVelocity(direction * ballStartSpeed);
         IsPlaying = true;
     }
 }
