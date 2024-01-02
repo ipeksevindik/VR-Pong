@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Newtonsoft.Json.Schema;
-
+using Photon.Pun;
 using UnityEngine;
 
-public class LeftJoystick : MonoBehaviour, IPlayerMovement
+public class LeftJoystick : MonoBehaviourPun, IPlayerMovement
 {
     public GameObject TopWall;
     public GameObject BottomWall;
@@ -17,9 +17,13 @@ public class LeftJoystick : MonoBehaviour, IPlayerMovement
     float threshold = 20;
     float maxY;
     float minY;
-    public Ball ball;
     public Rigidbody rb;
     private float objectHeight;
+    private bool isTriggeringPrevious;
+    private bool isTriggering;
+
+    public Action LeftPlayerLerp;
+
 
     private void Start()
     {
@@ -45,19 +49,29 @@ public class LeftJoystick : MonoBehaviour, IPlayerMovement
         {
             Vector3 fVelocity = new Vector3(0, 0.3f, 0);
             rb.velocity = fVelocity;
+            isTriggering = true;
         }
         if (hj.angle > hj.limits.max - threshold)
         {
             Vector3 fVelocity = new Vector3(0, -0.3f, 0);
             rb.velocity = fVelocity;
+            isTriggering = true;
         }
         if (hj.angle > hj.limits.min + threshold && hj.angle < hj.limits.max - threshold)
         {
             Vector3 fVelocity = new Vector3(0, 0, 0);
             rb.velocity = fVelocity;
+            isTriggering = false;
         }
 
+        if (isTriggeringPrevious != isTriggering)
+        {
+            LeftPlayerLerp?.Invoke();
+        }
+
+        isTriggeringPrevious = isTriggering;
     }
+
 
     public void Boundaries()
     {

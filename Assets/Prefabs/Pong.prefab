@@ -437,8 +437,7 @@ MonoBehaviour:
   TopWall: {fileID: 1197238492386980896}
   BottomWall: {fileID: 6122899225682210161}
   Player: {fileID: 5860578585444204781}
-  ball: {fileID: 21395932032616902}
-  rb: {fileID: 0}
+  rb: {fileID: 893024136}
 --- !u!1 &1470498443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,7 +1140,7 @@ MonoBehaviour:
   TopWall: {fileID: 1197238492386980896}
   BottomWall: {fileID: 6122899225682210161}
   Player: {fileID: 1948420344}
-  rb: {fileID: 0}
+  rb: {fileID: 4943365329465742810}
   ball: {fileID: 21395932032616902}
 --- !u!1 &1139590679528078829
 GameObject:
@@ -1944,6 +1943,10 @@ MonoBehaviour:
   leftPlayer: {fileID: 5860578585444204778}
   rightPlayer: {fileID: 1948420345}
   ball: {fileID: 21395932032616902}
+  LeftJoystick: {fileID: 893024139}
+  RightJoystick: {fileID: 4373698320277185608}
+  right_rb: {fileID: 8274307912921774295}
+  left_rb: {fileID: 920878314310997783}
 --- !u!114 &295940105
 MonoBehaviour:
   m_ObjectHideFlags: 0

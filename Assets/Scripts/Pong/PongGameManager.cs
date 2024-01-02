@@ -24,6 +24,12 @@ public class PongGameManager : MonoBehaviourPun
     [SerializeField]
     Ball ball;
 
+    [SerializeField]
+    LeftJoystick LeftJoystick;
+
+    [SerializeField]
+    RightJoystick RightJoystick;
+
     public bool IsPlaying { get; protected set; }
 
     public int TotalScore => rightPlayerGoal.counter + leftPlayerGoal.counter;
@@ -32,23 +38,26 @@ public class PongGameManager : MonoBehaviourPun
     Vector3 left_pos;
 
     private Vector3 player_pos;
+    private Coroutine rigthLerpCoroutine;
+    private Coroutine leftLerpCoroutine;
+    public Rigidbody right_rb;
+    public Rigidbody left_rb;
+
 
 
     private void Awake()
     {
+        right_rb = rightPlayer.transform.GetComponent<Rigidbody>();
+        left_rb = leftPlayer.transform.GetComponent<Rigidbody>();
         ball_pos = ball.transform.position;
         right_pos = rightPlayer.transform.position;
         left_pos = leftPlayer.transform.position;
     }
 
-    private void Start()
-    {
-        Invoke(nameof(SetPlayersPosition), 1);
-
-    }
-
     private void OnEnable()
     {
+        LeftJoystick.LeftPlayerLerp += SetLeftPlayerPosition;
+        RightJoystick.RightPlayerLerp += SetRightPlayerPosition;
         rightPlayerGoal.RightOnCollidedBall += RightScoreIncrease;
         leftPlayerGoal.LeftOnCollidedBall += LeftScoreIncrease;
 
@@ -56,6 +65,8 @@ public class PongGameManager : MonoBehaviourPun
 
     private void OnDisable()
     {
+        LeftJoystick.LeftPlayerLerp -= SetLeftPlayerPosition;
+        RightJoystick.RightPlayerLerp -= SetRightPlayerPosition;
         rightPlayerGoal.RightOnCollidedBall -= RightScoreIncrease;
         leftPlayerGoal.LeftOnCollidedBall -= LeftScoreIncrease;
     }
@@ -189,29 +200,108 @@ public class PongGameManager : MonoBehaviourPun
         ResetPlayerPositions();
     }
 
-    public void SetPlayersPosition()
-    {
-        if (!PhotonNetwork.IsMasterClient)
-            return;
+    #region lerp player positions
 
-        photonView.RPC(nameof(SetPlayersPositionRPC), RpcTarget.All, leftPlayer.transform.position, rightPlayer.transform.position);
-        Invoke(nameof(SetPlayersPosition), 1);
+    public void SetRightPlayerPosition()
+    {
+        photonView.RPC(nameof(SetRightPlayerPositionRPC), RpcTarget.MasterClient, PhotonNetwork.GetPing(), right_rb.position, right_rb.velocity, true);
+
+    }
+
+    public void SetLeftPlayerPosition()
+    {
+        photonView.RPC(nameof(SetLeftPlayerPositionRPC), RpcTarget.MasterClient, PhotonNetwork.GetPing(), left_rb.position, left_rb.velocity, true);
 
     }
 
     [PunRPC]
-    public void SetPlayersPositionRPC(Vector3 leftPosition, Vector3 rightPosition)
+    public void SetLeftPlayerPositionRPC(int clientPing, Vector3 leftPosition, Vector3 leftNewVelocity, bool lerp = false)
     {
-        leftPlayer.transform.position = leftPosition;
-        rightPlayer.transform.position = rightPosition;
+        if (leftLerpCoroutine is not null)
+        {
+            StopCoroutine(leftLerpCoroutine);
+        }
+        left_rb.velocity = leftNewVelocity;
+        Vector3 left_newPosition = leftPosition + leftNewVelocity * clientPing * .0005f;
 
+        if (lerp)
+        {
+            leftLerpCoroutine = StartCoroutine(LeftLerpNewPosition(left_rb.position, left_newPosition, leftNewVelocity));
+        }
+
+        else
+        {
+            left_rb.position = leftPosition;
+        }
     }
+
+
+    [PunRPC]
+    public void SetRightPlayerPositionRPC(int clientPing, Vector3 rightPosition, Vector3 rigtNewVelocity, bool lerp = false)
+    {
+        if (rigthLerpCoroutine is not null)
+        {
+            StopCoroutine(rigthLerpCoroutine);
+        }
+
+        right_rb.velocity = rigtNewVelocity;
+        Vector3 right_newPosition = rightPosition + rigtNewVelocity * clientPing * .0005f;
+
+        if (lerp)
+        {
+            rigthLerpCoroutine = StartCoroutine(RightLerpNewPosition(right_rb.position, right_newPosition, rigtNewVelocity));
+        }
+        else
+        {
+            right_rb.position = rightPosition;
+        }
+    }
+
+    public IEnumerator RightLerpNewPosition(Vector3 a, Vector3 b, Vector3 rightNewVelocity)
+    {
+        float t = 0f;
+        right_rb.velocity = rightNewVelocity;
+        while (t <= .25f)
+        {
+            Vector3 rightProjectedOld = a + t * rightNewVelocity;
+            Vector3 rightProjectedNew = b + t * rightNewVelocity;
+            transform.position = Vector3.Lerp(rightProjectedOld, rightProjectedNew, t);
+            t += Time.deltaTime;
+            right_rb.velocity = rightNewVelocity;
+            yield return new WaitForEndOfFrame();
+        }
+        transform.position = b + t * rightNewVelocity;
+        right_rb.velocity = rightNewVelocity;
+    }
+
+
+    public IEnumerator LeftLerpNewPosition(Vector3 a, Vector3 b, Vector3 leftNewVelocity)
+    {
+        float t = 0f;
+        left_rb.velocity = leftNewVelocity;
+        while (t <= .25f)
+        {
+            Vector3 leftProjectedOld = a + t * leftNewVelocity;
+            Vector3 leftProjectedNew = b + t * leftNewVelocity;
+            transform.position = Vector3.Lerp(leftProjectedOld, leftProjectedNew, t);
+            t += Time.deltaTime;
+            left_rb.velocity = leftNewVelocity;
+            yield return new WaitForEndOfFrame();
+        }
+        transform.position = b + t * leftNewVelocity;
+        left_rb.velocity = leftNewVelocity;
+    }
+
+    #endregion
 
     [PunRPC]
     private void StartGameRPC(Vector3 direction)
     {
         ResetBallPosition();
         ball.SetBallVelocity(direction * ballStartSpeed);
+        //SetPlayersPosition();
         IsPlaying = true;
     }
+
+
 }

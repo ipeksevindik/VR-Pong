@@ -24,7 +24,6 @@ public class RightPlayer : MonoBehaviour
     {
         if (other.gameObject == ball.gameObject)
         {
-            Debug.Log("right player");
             RightOnCollidedBall?.Invoke();
         }
     }

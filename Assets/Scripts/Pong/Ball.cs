@@ -60,13 +60,9 @@ public class Ball : MonoBehaviour
 
         ballVelocity = newVelocity;
         Vector3 newPosition = pos + newVelocity * PhotonNetwork.GetPing() * .0005f;
-        // rb.position = Vector3.Lerp(rb.position, newPosition, 0.5f); // ? 
-
-
         rb.velocity = newVelocity;
 
         Debug.DrawLine(newPosition, newPosition + newVelocity * .25f, Color.blue, 2f);
-        // Debug.DrawRay(pos, newVelocity, Color.blue, 20f);
         if (PhotonNetwork.IsMasterClient)
         {
             rb.position = pos;
@@ -81,13 +77,11 @@ public class Ball : MonoBehaviour
     IEnumerator LerpNewPosition(Vector3 a, Vector3 b, Vector3 newVelocity)
     {
         float t = 0f;
-        // Debug.DrawLine(a, a + oldVelocity * .25f, Color.green, 2f);
         rb.velocity = newVelocity;
         while (t <= .25f)
         {
             Vector3 projectedOld = a + t * newVelocity;
             Vector3 projectedNew = b + t * newVelocity;
-            // Debug.DrawLine(a, projectedOld, Color.magenta, .1f);
             Debug.DrawLine(b, projectedNew, Color.red, .1f);
             transform.position = Vector3.Lerp(projectedOld, projectedNew, t);
             t += Time.deltaTime;

@@ -34,42 +34,27 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - BallNewVelocity
   - ClickRpc
   - DestroyRpc
   - DestroySpaceship
+  - EndGameRPC
   - Fire
+  - LeftScoreUpdateRPC
+  - ResetBallPositionRPC
+  - ResetPlayerPositionRPC
   - RespawnSpaceship
-  - CallHandle
-  - SelectRandomItem
-  - SetItemIndex
+  - RightScoreUpdateRPC
   - RowLoop
+  - SelectRandomRowSpin
   - SetItemIndex1
   - SetItemIndex2
   - SetItemIndex3
-  - SelectRandomRowSpin
-  - SetItemIndex5
   - SetItemIndex4
-  - AddStartingForce
-  - Score
-  - ResetPosition
-  - ResetBallPosition
-  - ResetPlayerPosition
-  - BallNewVelocity
-  - OnCollisionEnter
-  - BallMovement
-  - BallMove
-  - SetVelocityRPC
-  - ResetScore
-  - RightScoreUpdateRPC
-  - LeftScoreUpdateRPC
-  - ResetScoreRPC
-  - EndGameRPC
+  - SetItemIndex5
+  - SetLeftPlayerPositionRPC
+  - SetRightPlayerPositionRPC
   - StartGameRPC
-  - ResetBallPositionRPC
-  - ResetPlayerPositionRPC
-  - LeftPlayerPositionRPC
-  - RightPlayerPositionRPC
-  - SetPlayersPositionRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

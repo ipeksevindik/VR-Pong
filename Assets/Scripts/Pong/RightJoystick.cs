@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class RightJoystick : MonoBehaviour, IPlayerMovement
@@ -18,7 +20,9 @@ public class RightJoystick : MonoBehaviour, IPlayerMovement
     float minY;
 
     private float objectHeight;
-
+    private bool isTriggeringPrevious;
+    private bool isTriggering;
+    public Action RightPlayerLerp;
 
     private void Start()
     {
@@ -36,7 +40,6 @@ public class RightJoystick : MonoBehaviour, IPlayerMovement
     private void FixedUpdate()
     {
         Boundaries();
-
     }
 
 
@@ -46,17 +49,28 @@ public class RightJoystick : MonoBehaviour, IPlayerMovement
         {
             Vector3 fVelocity = new Vector3(0, 0.3f, 0);
             rb.velocity = fVelocity;
+            isTriggering = true;
+
         }
         if (hj.angle > hj.limits.max - threshold)
         {
             Vector3 fVelocity = new Vector3(0, -0.3f, 0);
             rb.velocity = fVelocity;
+            isTriggering = true;
+
         }
         if (hj.angle > hj.limits.min + threshold && hj.angle < hj.limits.max - threshold)
         {
             Vector3 fVelocity = new Vector3(0, 0, 0);
             rb.velocity = fVelocity;
+            isTriggering = false;
         }
+        if (isTriggeringPrevious != isTriggering)
+        {
+            RightPlayerLerp?.Invoke();
+        }
+
+        isTriggeringPrevious = isTriggering;
 
     }
 

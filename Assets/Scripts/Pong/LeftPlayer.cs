@@ -22,7 +22,6 @@ public class LeftPlayer : MonoBehaviour
     {
         if (other.gameObject == ball.gameObject)
         {
-            Debug.Log("left player");
             LeftOnCollidedBall?.Invoke();
         }
     }
