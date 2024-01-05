@@ -16,6 +16,9 @@ public class Ball : MonoBehaviour
     public PhotonView photonView;
 
     PongGameManager gameManager;
+
+    PongAudioManager audioManager;
+
     private Vector3 ballVelocity;
     private Coroutine lerpCoroutine;
 
@@ -23,10 +26,13 @@ public class Ball : MonoBehaviour
     {
         photonView = GetComponent<PhotonView>();
         gameManager = transform.parent.GetComponentInChildren<PongGameManager>();
+        audioManager = transform.parent.GetComponentInChildren<PongAudioManager>();
     }
 
     private void OnCollisionEnter(Collision other)
     {
+        audioManager.PlayBallHit();
+
         ContactPoint contactPoint = other.contacts[0];
         Vector3 normal = Perpendiculate(contactPoint.normal);
         ballVelocity = Vector3.Reflect(ballVelocity, normal);

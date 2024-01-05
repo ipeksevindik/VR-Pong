@@ -30,8 +30,9 @@ public class GrabbableJoystick : XRGrabInteractable
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
-        interactor = args.interactorObject;
+
         pView.RequestOwnership();
+        interactor = args.interactorObject;
     }
 
 

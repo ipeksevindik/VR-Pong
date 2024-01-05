@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class LeftJoystick : MonoBehaviourPun, IPlayerMovement
 {
+    public PhotonView JoystickPhotonView;
     public GameObject TopWall;
     public GameObject BottomWall;
 

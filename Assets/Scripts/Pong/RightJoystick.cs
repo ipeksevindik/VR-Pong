@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class RightJoystick : MonoBehaviour, IPlayerMovement
 {
+    public PhotonView JoystickPhotonView;
     public GameObject TopWall;
     public GameObject BottomWall;
 

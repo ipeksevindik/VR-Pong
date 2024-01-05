@@ -33,7 +33,6 @@ public class StartButton : XRSimpleInteractable
     {
         if (!pongGameManager.IsPlaying)
         {
-            Debug.Log("neden çalışmıyosun????");
             pongGameManager.StartGame();
             // ball.photonView.RPC("AddStartingForce", RpcTarget.AllBuffered);
         }

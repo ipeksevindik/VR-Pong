@@ -204,13 +204,15 @@ public class PongGameManager : MonoBehaviourPun
 
     public void SetRightPlayerPosition()
     {
-        photonView.RPC(nameof(SetRightPlayerPositionRPC), RpcTarget.MasterClient, PhotonNetwork.GetPing(), right_rb.position, right_rb.velocity, true);
+        if (RightJoystick.JoystickPhotonView.IsMine)
+            photonView.RPC(nameof(SetRightPlayerPositionRPC), RpcTarget.Others, PhotonNetwork.GetPing(), right_rb.position, right_rb.velocity, true);
 
     }
 
     public void SetLeftPlayerPosition()
     {
-        photonView.RPC(nameof(SetLeftPlayerPositionRPC), RpcTarget.MasterClient, PhotonNetwork.GetPing(), left_rb.position, left_rb.velocity, true);
+        if (LeftJoystick.JoystickPhotonView.IsMine)
+            photonView.RPC(nameof(SetLeftPlayerPositionRPC), RpcTarget.Others, PhotonNetwork.GetPing(), left_rb.position, left_rb.velocity, true);
 
     }
 
@@ -222,7 +224,7 @@ public class PongGameManager : MonoBehaviourPun
             StopCoroutine(leftLerpCoroutine);
         }
         left_rb.velocity = leftNewVelocity;
-        Vector3 left_newPosition = leftPosition + leftNewVelocity * clientPing * .0005f;
+        Vector3 left_newPosition = leftPosition + leftNewVelocity * clientPing * .001f;
 
         if (lerp)
         {
@@ -245,7 +247,7 @@ public class PongGameManager : MonoBehaviourPun
         }
 
         right_rb.velocity = rigtNewVelocity;
-        Vector3 right_newPosition = rightPosition + rigtNewVelocity * clientPing * .0005f;
+        Vector3 right_newPosition = rightPosition + rigtNewVelocity * clientPing * .001f;
 
         if (lerp)
         {

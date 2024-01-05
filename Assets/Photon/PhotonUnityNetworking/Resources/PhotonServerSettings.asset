@@ -55,6 +55,10 @@ MonoBehaviour:
   - SetLeftPlayerPositionRPC
   - SetRightPlayerPositionRPC
   - StartGameRPC
+  - ChangeMaxParticipantCountRPC
+  - ForceOwnerChangeRPC
+  - JoinRPC
+  - LeaveRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
